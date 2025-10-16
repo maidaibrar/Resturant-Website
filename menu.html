@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu - Crunch Bite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      color: #333;
+    }
+    nav {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: #e67e22;
+    }
+    .section {
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #e67e22;
+      margin-bottom: 30px;
+    }
+    .category {
+      margin-bottom: 30px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .category h2 {
+      margin: 0;
+      padding: 15px;
+      background-color: #e67e22;
+      color: white;
+      cursor: pointer;
+    }
+    .items {
+      display: none;
+      padding: 20px;
+      background: #fff;
+    }
+    .dish {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 0;
+    }
+    img.menu-img {
+      max-width: 100%;
+      margin-top: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div><strong>Crunch Bite 🍔</strong></div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="booking.html">Booking</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="map.html">Map</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <!-- Menu Section -->
+  <div class="section">
+    <h1>Our Full Menu</h1>
+
+    <!-- Signature Pizzas -->
+    <div class="category">
+        <h2 onclick="toggle(this)">🍕 Signature & Regular Pizzas</h2>
+        <div class="items">
+          <div class="dish"><span>Lasania Pizza (S/M/L)</span><span>Rs. 1175 / 1480 / 1780</span></div>
+          <div class="dish"><span>White Sauce Pizza (S/M/L)</span><span>Rs. 1175 / 1480 / 1780</span></div>
+          <div class="dish"><span>Chicken Tikka Pizza (S/M/L)</span><span>Rs. 1140 / 1440 / 1740</span></div>
+          <div class="dish"><span>Hot & Spicy Pizza (S/M/L)</span><span>Rs. 1140 / 1440 / 1740</span></div>
+          <div class="dish"><span>Pizza Doner</span><span>Rs. 1190</span></div>
+          <div class="dish"><span>Fajita Pizza (S/M/L)</span><span>Rs. 1120 / 1400 / 1700</span></div>
+          <div class="dish"><span>BBQ Chicken Pizza (S/M/L)</span><span>Rs. 1130 / 1450 / 1750</span></div>
+          <div class="dish"><span>Malai Boti Pizza (S/M/L)</span><span>Rs. 1150 / 1470 / 1770</span></div>
+          <div class="dish"><span>Seekh Kabab Pizza (S/M/L)</span><span>Rs. 1180 / 1490 / 1790</span></div>
+          <div class="dish"><span>Smokey Chicken Pizza (S/M/L)</span><span>Rs. 1160 / 1460 / 1760</span></div>
+          <div class="dish"><span>Chicken Supreme Pizza (S/M/L)</span><span>Rs. 1190 / 1500 / 1800</span></div>
+          <div class="dish"><span>Crunch Special Pizza (S/M/L)</span><span>Rs. 1200 / 1550 / 1850</span></div>
+          <div class="dish"><span>Vegetable Pizza (S/M/L)</span><span>Rs. 980 / 1250 / 1550</span></div>
+          <div class="dish"><span>Cheese Lover Pizza (S/M/L)</span><span>Rs. 1090 / 1370 / 1670</span></div>
+          <div class="dish"><span>Beef Pepperoni Pizza (S/M/L)</span><span>Rs. 1220 / 1540 / 1840</span></div>
+        </div>
+      </div>
+      
+
+   <!-- Burgers & Rolls -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍔 Burgers & Rolls</h2>
+    <div class="items">
+      <div class="dish"><span>Petty Burger</span><span>Rs. 270</span></div>
+      <div class="dish"><span>Zinger Burger</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Tikka Burger</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Double Decker Burger</span><span>Rs. 645</span></div>
+      <div class="dish"><span>Chicken Paratha Roll</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Beef Cheese Burger</span><span>Rs. 420</span></div>
+      <div class="dish"><span>Fish Burger</span><span>Rs. 440</span></div>
+      <div class="dish"><span>Peri Peri Zinger</span><span>Rs. 490</span></div>
+      <div class="dish"><span>Mayo Garlic Burger</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Shami Burger</span><span>Rs. 230</span></div>
+      <div class="dish"><span>Crunchy Chicken Burger</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Egg Burger</span><span>Rs. 250</span></div>
+      <div class="dish"><span>Chapli Burger</span><span>Rs. 300</span></div>
+      <div class="dish"><span>Paneer Tikka Roll</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Beef Seekh Roll</span><span>Rs. 420</span></div>
+    </div>
+  </div>
+
+   <!-- BBQ -->
+<div class="category">
+    <h2 onclick="toggle(this)">🔥 BBQ & Tandoori</h2>
+    <div class="items">
+      <div class="dish"><span>Chicken Tikka Piece (Leg/Breast)</span><span>Rs. 390</span></div>
+      <div class="dish"><span>Chicken Reshmi Kabab (6pc)</span><span>Rs. 1090</span></div>
+      <div class="dish"><span>B.B.Q Special Platter (2 person)</span><span>Rs. 1990</span></div>
+      <div class="dish"><span>Chicken Malai Boti (8pc)</span><span>Rs. 850</span></div>
+      <div class="dish"><span>Chicken Seekh Kabab (4pc)</span><span>Rs. 490</span></div>
+      <div class="dish"><span>Beef Seekh Kabab (4pc)</span><span>Rs. 590</span></div>
+      <div class="dish"><span>Beef Bihari Boti</span><span>Rs. 880</span></div>
+      <div class="dish"><span>Mutton Chops BBQ</span><span>Rs. 1250</span></div>
+      <div class="dish"><span>Chicken Wings BBQ (6pc)</span><span>Rs. 640</span></div>
+      <div class="dish"><span>BBQ Platter for Family (4–5 pax)</span><span>Rs. 3690</span></div>
+      <div class="dish"><span>Grilled Fish Fillet</span><span>Rs. 990</span></div>
+      <div class="dish"><span>Chicken Chargha (Full)</span><span>Rs. 1190</span></div>
+      <div class="dish"><span>Tandoori Roti</span><span>Rs. 25</span></div>
+      <div class="dish"><span>Butter Naan</span><span>Rs. 40</span></div>
+      <div class="dish"><span>Garlic Naan</span><span>Rs. 60</span></div>
+    </div>
+  </div>
+  
+
+   <!-- Chicken & Mutton -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍗 Chicken, Mutton & Beef Dishes</h2>
+    <div class="items">
+      <!-- Existing Chicken Options -->
+      <div class="dish"><span>Chicken White Karahi (Half/Full)</span><span>Rs. 1045 / 1950</span></div>
+      <div class="dish"><span>Mutton White Karahi (Half/Full)</span><span>Rs. 2195 / 3595</span></div>
+      <div class="dish"><span>Desi Murgh Karahi (Half/Full)</span><span>Rs. 2145 / 3495</span></div>
+  
+      <!-- Mutton Dishes -->
+      <div class="dish"><span>Mutton Black Pepper Karahi</span><span>Rs. 2290</span></div>
+      <div class="dish"><span>Mutton Handi (Boneless)</span><span>Rs. 2490</span></div>
+      <div class="dish"><span>Mutton Roghan Josh</span><span>Rs. 2390</span></div>
+      <div class="dish"><span>Mutton Qorma</span><span>Rs. 2250</span></div>
+      <div class="dish"><span>Mutton Kadhai Lahori</span><span>Rs. 2295</span></div>
+      <div class="dish"><span>Mutton Paya (1 Bowl)</span><span>Rs. 980</span></div>
+      <div class="dish"><span>Mutton Kunna</span><span>Rs. 2190</span></div>
+  
+      <!-- Beef Dishes -->
+      <div class="dish"><span>Beef Nihari</span><span>Rs. 780</span></div>
+      <div class="dish"><span>Beef Qeema Fry</span><span>Rs. 750</span></div>
+      <div class="dish"><span>Beef Handi (Boneless)</span><span>Rs. 990</span></div>
+      <div class="dish"><span>Beef Karahi Spicy (Half/Full)</span><span>Rs. 1050 / 1850</span></div>
+      <div class="dish"><span>Beef Paya (Single Bowl)</span><span>Rs. 880</span></div>
+      <div class="dish"><span>Beef Kunna</span><span>Rs. 990</span></div>
+    </div>
+  </div>
+  
+<!-- Chinese -->
+<div class="category">
+    <h2 onclick="toggle(this)">🥡 Chinese</h2>
+    <div class="items">
+      <div class="dish"><span>Chicken Manchurian</span><span>Rs. 890</span></div>
+      <div class="dish"><span>Chicken Chow Mein</span><span>Rs. 840</span></div>
+      <div class="dish"><span>Chinese Rice with Gravy</span><span>Rs. 890</span></div>
+      <div class="dish"><span>Beef Chili Dry</span><span>Rs. 940</span></div>
+      <div class="dish"><span>Hot & Sour Chicken</span><span>Rs. 920</span></div>
+      <div class="dish"><span>Schezwan Chicken</span><span>Rs. 930</span></div>
+      <div class="dish"><span>Kung Pao Chicken</span><span>Rs. 950</span></div>
+      <div class="dish"><span>Egg Fried Rice</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Vegetable Chow Mein</span><span>Rs. 770</span></div>
+      <div class="dish"><span>Beef Black Pepper</span><span>Rs. 980</span></div>
+      <div class="dish"><span>Garlic Chicken Gravy</span><span>Rs. 910</span></div>
+      <div class="dish"><span>Chicken Fried Rice</span><span>Rs. 820</span></div>
+      <div class="dish"><span>Szechuan Fried Rice</span><span>Rs. 860</span></div>
+      <div class="dish"><span>Thai Chicken with Cashew Nuts</span><span>Rs. 990</span></div>
+      <div class="dish"><span>Dry Chicken Chili</span><span>Rs. 900</span></div>
+    </div>
+  </div>
+  
+
+   <!-- Rice -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍚 Rice Dishes</h2>
+    <div class="items">
+      <div class="dish"><span>Chicken Biryani</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Beef Pulao</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Plain Rice</span><span>Rs. 250</span></div>
+      <div class="dish"><span>Egg Fried Rice</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Vegetable Fried Rice</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Mutton Biryani</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Beef Biryani</span><span>Rs. 390</span></div>
+      <div class="dish"><span>Chinese Rice with Gravy</span><span>Rs. 890</span></div>
+      <div class="dish"><span>Peas Pulao</span><span>Rs. 270</span></div>
+      <div class="dish"><span>Mix Biryani</span><span>Rs. 410</span></div>
+      <div class="dish"><span>Chicken Qabli Pulao</span><span>Rs. 410</span></div>
+      <div class="dish"><span>Yakhni Pulao</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Spicy Chicken Fried Rice</span><span>Rs. 340</span></div>
+      <div class="dish"><span>Beef Yakhni Pulao</span><span>Rs. 380</span></div>
+      <div class="dish"><span>Sindhi Biryani</span><span>Rs. 420</span></div>
+    </div>
+  </div>
+  
+  <!-- Daal -->
+  <div class="category">
+    <h2 onclick="toggle(this)">🍲 Daal Varieties</h2>
+    <div class="items">
+      <div class="dish"><span>Daal Chana (Half/Full)</span><span>Rs. 190 / 330</span></div>
+      <div class="dish"><span>Daal Mash</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Daal Maash Fry</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Daal Masoor</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Mix Daal</span><span>Rs. 340</span></div>
+      <div class="dish"><span>Spicy Daal Fry</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Daal Palak</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Daal Tadka</span><span>Rs. 320</span></div>
+      <div class="dish"><span>Punjabi Daal</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Butter Daal Fry</span><span>Rs. 390</span></div>
+      <div class="dish"><span>Desi Ghee Daal</span><span>Rs. 410</span></div>
+      <div class="dish"><span>Daal Makhani</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Simple Daal Soup Style</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Daal with Boiled Egg</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Dry Daal Chawal Combo</span><span>Rs. 370</span></div>
+    </div>
+  </div>
+  
+  <!-- Vegetable Dishes -->
+  <div class="category">
+    <h2 onclick="toggle(this)">🥦 Vegetables</h2>
+    <div class="items">
+      <div class="dish"><span>Aloo Gobi</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Bhindi Fry</span><span>Rs. 340</span></div>
+      <div class="dish"><span>Lauki (Bottle Gourd)</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Mix Vegetable</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Palak Paneer</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Shimla Mirch Aloo</span><span>Rs. 320</span></div>
+      <div class="dish"><span>Tinday Masala</span><span>Rs. 300</span></div>
+      <div class="dish"><span>Baingan Bharta</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Karela Fry</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Chana with Lauki</span><span>Rs. 340</span></div>
+      <div class="dish"><span>Sarson Ka Saag</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Arvi Masala</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Chana Dal with Tori</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Stuffed Capsicum</span><span>Rs. 390</span></div>
+      <div class="dish"><span>Paneer Bhurji</span><span>Rs. 450</span></div>
+    </div>
+  </div>
+  
+
+   <!-- Salad & Raita -->
+<div class="category">
+    <h2 onclick="toggle(this)">🥗 Salad & Raita</h2>
+    <div class="items">
+      <div class="dish"><span>Plain Raita</span><span>Rs. 90</span></div>
+      <div class="dish"><span>Zeera Raita</span><span>Rs. 110</span></div>
+      <div class="dish"><span>Mint Raita</span><span>Rs. 120</span></div>
+      <div class="dish"><span>Russian Salad</span><span>Rs. 230</span></div>
+      <div class="dish"><span>Fresh Garden Salad</span><span>Rs. 150</span></div>
+      <div class="dish"><span>Coleslaw</span><span>Rs. 130</span></div>
+      <div class="dish"><span>Macaroni Salad</span><span>Rs. 170</span></div>
+      <div class="dish"><span>Fruit Salad</span><span>Rs. 190</span></div>
+      <div class="dish"><span>Spicy Chickpea Salad</span><span>Rs. 160</span></div>
+      <div class="dish"><span>Cucumber Yogurt Salad</span><span>Rs. 140</span></div>
+    </div>
+  </div>
+  
+    <!-- Deals -->
+<div class="category">
+    <h2 onclick="toggle(this)">🎉 Deals</h2>
+    <div class="items">
+      <div class="dish"><span>Deal 1: 2 Petty Burgers + 1 Regular Fries + 1 Pepsi</span><span>Rs. 530</span></div>
+      <div class="dish"><span>Deal 2: 1 Chicken Biryani + 1 Raita + 1 Cold Drink</span><span>Rs. 420</span></div>
+      <div class="dish"><span>Deal 3: 1 Zinger Burger + 1 Garlic Fries + 1 Drink</span><span>Rs. 590</span></div>
+      <div class="dish"><span>Deal 4: 1 Chicken Shawarma + 1 Cold Drink</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Deal 5: 1 Small Pizza (any flavor) + 1 Regular Fries + 1 Drink</span><span>Rs. 890</span></div>
+      <div class="dish"><span>Deal 6: 1 Pasta Bowl + 2 Garlic Bread + 1 Mint Margarita</span><span>Rs. 690</span></div>
+      <div class="dish"><span>Deal 7: Chicken Fried Rice (Full) + Chicken Manchurian + 2 Cold Drinks</span><span>Rs. 950</span></div>
+      <div class="dish"><span>Deal 8: 1 Chicken Tikka Piece + 2 Roti + 1 Raita + 1 Drink</span><span>Rs. 490</span></div>
+      <div class="dish"><span>Deal 9: 2 Shawarma + 1 Family Fries + 2 Drinks</span><span>Rs. 850</span></div>
+      <div class="dish"><span>Deal 10: 10 Wings + 1 Zinger + 1 Garlic Fries + 2 Pepsi</span><span>Rs. 650</span></div>
+      <div class="dish"><span>Deal 11: 1 Loaded Fries + 1 Oreo Shake</span><span>Rs. 470</span></div>
+      <div class="dish"><span>Deal 12: Chinese Platter (2 Chow Mein + 2 Manchurian + 2 Drinks)</span><span>Rs. 1290</span></div>
+      <div class="dish"><span>Deal 13: 2 Large Pizzas + 2 Family Fries + 1.5L Drink</span><span>Rs. 5990</span></div>
+      <div class="dish"><span>Student Deal A: 1 Petty Burger + 1 Cold Drink</span><span>Rs. 270</span></div>
+      <div class="dish"><span>Student Deal B: 1 Chicken Roll + 1 Mint Margarita</span><span>Rs. 390</span></div>
+    </div>
+  </div>
+
+  <!-- Special Theme-Based Deals -->
+<div class="category">
+    <h2 onclick="toggle(this)">🌙 Midnight, Kids & Tea Time Deals</h2>
+    <div class="items">
+  
+      <div class="dish"><span>Midnight Deal 1: Chicken Shawarma + Zinger Burger + Cold Drink (11pm–2am)</span><span>Rs. 690</span></div>
+      <div class="dish"><span>Midnight Deal 2: Small Pizza + Fries + Mint Margarita (11pm–2am)</span><span>Rs. 850</span></div>
+  
+      <div class="dish"><span>Kids Combo 1: Mini Burger + Small Fries + Juice Box + Choco Donut</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Kids Combo 2: Chicken Nuggets (4 pcs) + Fries + Chocolate Milk</span><span>Rs. 390</span></div>
+  
+      <div class="dish"><span>Tea Time Deal 1: 2 Samosas + 1 Pakora Plate + Karak Chai + Biscuit</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Tea Time Deal 2: Chicken Patties + 2 Biscuits + Green Tea</span><span>Rs. 260</span></div>
+      <div class="dish"><span>Tea Time Deal 3: Sandwich (Grilled) + Fries + Karak Chai</span><span>Rs. 360</span></div>
+  
+    </div>
+  </div>
+  
+
+   <!-- Beverages -->
+<div class="category">
+    <h2 onclick="toggle(this)">🥤 Beverages (Hot & Cold)</h2>
+    <div class="items">
+      <div class="dish"><span>Mint Margarita</span><span>Rs. 280</span></div>
+      <div class="dish"><span>Oreo Shake</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Chocolate Shake</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Strawberry Shake</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Vanilla Shake</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Banana Shake</span><span>Rs. 340</span></div>
+      <div class="dish"><span>Cold Coffee</span><span>Rs. 380</span></div>
+      <div class="dish"><span>Iced Latte</span><span>Rs. 399</span></div>
+      <div class="dish"><span>Fresh Lime Soda (Sweet/Salted)</span><span>Rs. 180</span></div>
+      <div class="dish"><span>Fresh Orange Juice</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Mango Juice (Seasonal)</span><span>Rs. 300</span></div>
+      <div class="dish"><span>Grape Juice</span><span>Rs. 280</span></div>
+      <div class="dish"><span>Watermelon Juice</span><span>Rs. 270</span></div>
+      <div class="dish"><span>Karak Chai</span><span>Rs. 130</span></div>
+      <div class="dish"><span>Green Tea</span><span>Rs. 99</span></div>
+      <div class="dish"><span>Masala Chai</span><span>Rs. 120</span></div>
+      <div class="dish"><span>Black Coffee</span><span>Rs. 160</span></div>
+      <div class="dish"><span>Hot Chocolate</span><span>Rs. 220</span></div>
+      <div class="dish"><span>Tandoori Chai</span><span>Rs. 150</span></div>
+      <div class="dish"><span>Badam Milk (Hot)</span><span>Rs. 190</span></div>
+    </div>
+  </div>
+  
+
+     <!-- Shawarma -->
+<div class="category">
+    <h2 onclick="toggle(this)">🌯 Shawarma</h2>
+    <div class="items">
+      <div class="dish"><span>Classic Chicken Shawarma</span><span>Rs. 250</span></div>
+      <div class="dish"><span>Zinger Shawarma</span><span>Rs. 300</span></div>
+      <div class="dish"><span>Beef Shawarma</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Cheese Shawarma</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Spicy Shawarma 🌶️</span><span>Rs. 270</span></div>
+      <div class="dish"><span>Garlic Mayo Shawarma</span><span>Rs. 280</span></div>
+      <div class="dish"><span>Paneer Shawarma</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Doner Shawarma</span><span>Rs. 340</span></div>
+      <div class="dish"><span>BBQ Shawarma</span><span>Rs. 300</span></div>
+      <div class="dish"><span>Peri Peri Shawarma 🔥</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Double Cheese Shawarma 🧀</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Chicken Malai Shawarma</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Fajita Shawarma</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Jumbo Shawarma</span><span>Rs. 420</span></div>
+      <div class="dish"><span>Crunchy Shawarma (Best Seller ⭐)</span><span>Rs. 380</span></div>
+    </div>
+  </div>
+  
+  
+      <!-- Appetizer & Soup -->
+      <div class="category">
+        <h2 onclick="toggle(this)">🍲 Appetizers & Soups</h2>
+        <div class="items">
+          <div class="dish"><span>Dhaka Chicken</span><span>Rs. 870</span></div>
+          <div class="dish"><span>Masala Fries</span><span>Rs. 390</span></div>
+          <div class="dish"><span>French Fries</span><span>Rs. 345</span></div>
+          <div class="dish"><span>Fish Cracker</span><span>Rs. 270</span></div>
+          <div class="dish"><span>Hot & Sour Soup</span><span>Rs. 445 / 890</span></div>
+          <div class="dish"><span>Chicken Corn Soup</span><span>Rs. 445 / 890</span></div>
+          <div class="dish"><span>C. Bite Special Soup</span><span>Rs. 540 / 980</span></div>
+        </div>
+      </div>
+  
+     <!-- Fries & Rolls -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍟 Fries & Loaded Rolls</h2>
+    <div class="items">
+      <div class="dish"><span>Regular Fries</span><span>Rs. 170</span></div>
+      <div class="dish"><span>Family Pack Fries</span><span>Rs. 320</span></div>
+      <div class="dish"><span>Garlic Mayo Fries</span><span>Rs. 250</span></div>
+      <div class="dish"><span>Loaded Fries with Chicken 🌶️</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Cheese Loaded Fries 🧀</span><span>Rs. 380</span></div>
+      <div class="dish"><span>BBQ Loaded Fries</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Peri Peri Fries</span><span>Rs. 330</span></div>
+      <div class="dish"><span>Masala Fries</span><span>Rs. 230</span></div>
+      <div class="dish"><span>Crinkle Fries</span><span>Rs. 220</span></div>
+      <div class="dish"><span>Curly Fries</span><span>Rs. 260</span></div>
+      <div class="dish"><span>Chilli Garlic Fries 🌶️</span><span>Rs. 310</span></div>
+      <div class="dish"><span>Twister Fries</span><span>Rs. 280</span></div>
+      <div class="dish"><span>Chilli Mayo Loaded Fries</span><span>Rs. 360</span></div>
+      <div class="dish"><span>Fiery Chicken Rolls 🌶️</span><span>Rs. 290</span></div>
+      <div class="dish"><span>Cheesy Garlic Chicken Roll (Best Seller ⭐)</span><span>Rs. 390</span></div>
+    </div>
+  </div>
+  
+  
+    <!-- Chicken Lover -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍗 Chicken Lover Specials</h2>
+    <div class="items">
+      <div class="dish"><span>Chicken Malai Boti (Half/Full)</span><span>Rs. 550 / 990</span></div>
+      <div class="dish"><span>Chicken Seekh Kabab (4pc/8pc)</span><span>Rs. 430 / 790</span></div>
+      <div class="dish"><span>Chicken Tikka Boti</span><span>Rs. 540</span></div>
+      <div class="dish"><span>Chicken Steam Roast (Half/Full)</span><span>Rs. 510 / 890</span></div>
+      <div class="dish"><span>Chicken Wings (6pc)</span><span>Rs. 430</span></div>
+      <div class="dish"><span>Chicken Nuggets (8pc)</span><span>Rs. 370</span></div>
+      <div class="dish"><span>Chicken Cheese Balls</span><span>Rs. 410</span></div>
+      <div class="dish"><span>Chicken Popcorn</span><span>Rs. 390</span></div>
+      <div class="dish"><span>Chicken Tempura</span><span>Rs. 460</span></div>
+      <div class="dish"><span>Chicken Strip Platter</span><span>Rs. 540</span></div>
+      <div class="dish"><span>Spicy Chicken Pieces 🌶️</span><span>Rs. 390</span></div>
+      <div class="dish"><span>BBQ Chicken Loaded Box</span><span>Rs. 690</span></div>
+      <div class="dish"><span>Grilled Chicken Steak</span><span>Rs. 750</span></div>
+      <div class="dish"><span>Chicken Karahi Boneless (Half/Full)</span><span>Rs. 960 / 1740</span></div>
+      <div class="dish"><span>Special Chicken Platter (Best Seller ⭐)</span><span>Rs. 1250</span></div>
+    </div>
+  </div>
+  
+  
+      <!-- Ice Cream -->
+<div class="category">
+    <h2 onclick="toggle(this)">🍨 Ice Cream Flavours (per scoop)</h2>
+    <div class="items">
+      <div class="dish"><span>Vanilla</span><span>Rs. 120</span></div>
+      <div class="dish"><span>Chocolate</span><span>Rs. 130</span></div>
+      <div class="dish"><span>Strawberry</span><span>Rs. 130</span></div>
+      <div class="dish"><span>Mango</span><span>Rs. 120</span></div>
+      <div class="dish"><span>Cookies & Cream</span><span>Rs. 150</span></div>
+      <div class="dish"><span>Oreo Crunch</span><span>Rs. 160</span></div>
+      <div class="dish"><span>Caramel Swirl</span><span>Rs. 140</span></div>
+      <div class="dish"><span>Pistachio</span><span>Rs. 150</span></div>
+      <div class="dish"><span>Butterscotch</span><span>Rs. 140</span></div>
+      <div class="dish"><span>Mint Choco Chip</span><span>Rs. 145</span></div>
+      <div class="dish"><span>Nutella</span><span>Rs. 160</span></div>
+      <div class="dish"><span>Kulfa</span><span>Rs. 130</span></div>
+      <div class="dish"><span>Malai</span><span>Rs. 120</span></div>
+      <div class="dish"><span>Black Forest</span><span>Rs. 160</span></div>
+      <div class="dish"><span>Chocolate Fudge (Best Seller ⭐)</span><span>Rs. 170</span></div>
+    </div>
+  </div>
+  
+  
+     <!-- Cold Drinks Only -->
+<div class="category">
+    <h2 onclick="toggle(this)">🧊 Cold Drinks</h2>
+    <div class="items">
+      <div class="dish"><span>Coca Cola (Regular / 1L)</span><span>Rs. 90 / 180</span></div>
+      <div class="dish"><span>Pepsi (Regular / 1L)</span><span>Rs. 90 / 180</span></div>
+      <div class="dish"><span>Fanta (Regular / 1L)</span><span>Rs. 90 / 180</span></div>
+      <div class="dish"><span>7Up (Regular / 1L)</span><span>Rs. 90 / 180</span></div>
+      <div class="dish"><span>Sprite (Regular / 1L)</span><span>Rs. 90 / 180</span></div>
+      <div class="dish"><span>Marinda</span><span>Rs. 90</span></div>
+      <div class="dish"><span>Pakola Ice Cream Soda</span><span>Rs. 100</span></div>
+      <div class="dish"><span>Pakola Lychee</span><span>Rs. 100</span></div>
+      <div class="dish"><span>Slice Mango</span><span>Rs. 110</span></div>
+      <div class="dish"><span>Fruitien Juice</span><span>Rs. 150</span></div>
+      <div class="dish"><span>Mazaa</span><span>Rs. 110</span></div>
+      <div class="dish"><span>Red Bull</span><span>Rs. 350</span></div>
+      <div class="dish"><span>Mineral Water (Small/Large)</span><span>Rs. 50 / 90</span></div>
+      <div class="dish"><span>Ice Cold Lemonade</span><span>Rs. 199</span></div>
+      <div class="dish"><span>Mint Margarita</span><span>Rs. 280</span></div>
+    </div>
+  </div>
+  
+  
+
+    <!-- Images from Uploaded Files -->
+    <h2 style="margin-top: 50px;">📸 Original Menu Snapshots</h2>
+    <img src="img1.jpg" alt="Menu Page 1" class="menu-img">
+    <img src="img2.jpg" alt="Menu Page 2" class="menu-img">
+  </div>
+
+  <script>
+    function toggle(el) {
+      const item = el.nextElementSibling;
+      item.style.display = item.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>

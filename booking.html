@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking - Welcome to Crunch Bite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+    }
+    nav {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: #e67e22;
+    }
+    .section {
+      max-width: 600px;
+      margin: auto;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #e67e22;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    input, select, textarea {
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cf711f;
+    }
+    #confirmationMsg {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div><strong>Crunch Bite 🍔</strong></div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="order.html">Order</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <!-- Booking Form -->
+  <div class="section">
+    <h1>Book Your Event</h1>
+    <form id="bookingForm">
+      <label>Your Full Name</label>
+      <input type="text" required placeholder="Ali Ahmed">
+
+      <label>Event Type</label>
+      <select required>
+        <option value="">Select</option>
+        <option value="birthday">Birthday</option>
+        <option value="party">Party</option>
+        <option value="family">Family Dinner</option>
+        <option value="corporate">Corporate Event</option>
+      </select>
+
+      <label>Number of Guests</label>
+      <input type="number" required placeholder="e.g. 20">
+
+      <label>Date & Time</label>
+      <input type="datetime-local" required min="<?= date('Y-m-d\TH:i') ?>">
+
+      <label>Contact Number</label>
+      <input type="tel" required placeholder="03XX-XXXXXXX">
+
+      <label>Any Special Instructions?</label>
+      <textarea placeholder="Decorations, music, seating, etc."></textarea>
+
+      <label>Upload Decor/Theme Image (Optional)</label>
+      <input type="file" accept="image/*">
+
+      <button type="submit">Book Now</button>
+    </form>
+
+    <div id="confirmationMsg">
+      ✅ Your event has been booked successfully! 🎉<br>
+      We will contact you shortly to confirm all the details.
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const msg = document.getElementById('confirmationMsg');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      msg.style.display = 'block';
+      form.reset();
+      window.scrollTo({
+        top: msg.offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!-- ✅ reviews.html with JavaScript Display of Contact Feedback -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews - Crunch Bite</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffefc;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: #e67e22;
+    }
+    .container {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #e67e22;
+    }
+    .review {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    .review img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .review-content {
+      flex: 1;
+    }
+    .review-content p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+    .stars {
+      color: #f39c12;
+      margin-bottom: 5px;
+    }
+    .social-section {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .social-section iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div><strong>Crunch Bite 🍔</strong></div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="booking.html">Booking</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="map.html">Map</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h1>Customer Reviews</h1>
+
+    <div class="review">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ali">
+      <div class="review-content">
+        <div class="stars">★★★★★</div>
+        <p><strong>Ali Raza:</strong> “Amazing taste! Their special BBQ pizza is one of the best I've had.”</p>
+      </div>
+    </div>
+
+    <div class="review">
+      <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sana">
+      <div class="review-content">
+        <div class="stars">★★★★☆</div>
+        <p><strong>Sana Malik:</strong> “Super quick delivery and food was hot and fresh. Highly recommended!”</p>
+      </div>
+    </div>
+
+    <div class="review">
+      <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="Hassan">
+      <div class="review-content">
+        <div class="stars">★★★★★</div>
+        <p><strong>Hassan Tariq:</strong> “Love their Desi Karahi and ambiance. Perfect for family dinners.”</p>
+      </div>
+    </div>
+
+    <div class="review">
+      <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Zara">
+      <div class="review-content">
+        <div class="stars">★★★★☆</div>
+        <p><strong>Zara Aslam:</strong> “Affordable deals and very clean place. Would visit again!”</p>
+      </div>
+    </div>
+
+    <!-- JavaScript Feedback Review -->
+    <div id="userReview"></div>
+
+    <div class="social-section">
+      <h2 style="color:#e67e22">See What People Are Saying on Facebook</h2>
+      <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FCrunchBiteOfficial%2Fposts%2F1234567890&width=500" allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <script>
+    const name = localStorage.getItem('fb_name');
+    const message = localStorage.getItem('fb_message');
+    if(name && message){
+      const container = document.getElementById("userReview");
+      container.innerHTML = `
+        <div class="review">
+          <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User">
+          <div class="review-content">
+            <div class="stars">★★★☆☆</div>
+            <p><strong>${name}:</strong> ${message}</p>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

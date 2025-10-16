@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crunch Bite Order</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff8f0; margin: 0; }
+    nav { background-color: #333; color: white; display: flex; justify-content: space-between; padding: 15px 30px; }
+    nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+    nav a { color: white; text-decoration: none; }
+    nav a:hover { color: #e67e22; }
+    .section { max-width: 800px; margin: auto; padding: 40px 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #e67e22; margin-bottom: 30px; }
+    label { font-weight: bold; margin-top: 20px; }
+    select, input[type="number"], input[type="time"], input[type="text"], textarea, input[type="file"] {
+      padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; width: 100%;
+    }
+    .item-block { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; padding: 15px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; }
+    button { margin-top: 20px; background-color: #e67e22; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; }
+    button:hover { background-color: #cf711f; }
+    #totalBill { margin-top: 20px; font-weight: bold; font-size: 18px; }
+    .confirmation { display: none; background-color: #dff0d8; color: #3c763d; padding: 15px; border: 1px solid #3c763d; border-radius: 5px; margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    .deal-box { margin: 20px 0; padding: 15px; border: 1px dashed #e67e22; border-radius: 8px; background: #fffaf5; }
+    .deal-details { margin-top: 10px; padding: 10px; background: #f9f9f9; border-radius: 5px; }
+   
+  /* Payment Method Dropdown */
+  #paymentMethod {
+    padding: 12px;
+    border: 1px solid #e67e22;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 8px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+  }
+
+  /* EasyPaisa Payment Box */
+  #easypaisaPaymentBox {
+    display: none;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #e67e22;
+    border-radius: 10px;
+    background: #fffaf5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  #easypaisaPaymentBox h3 {
+    margin-top: 0;
+    color: #e67e22;
+    font-size: 20px;
+    border-bottom: 1px dashed #e67e22;
+    padding-bottom: 10px;
+  }
+
+  /* QR Code Styling */
+  .qr-container {
+    display: inline-block;
+    border: 2px solid #e67e22;
+    padding: 15px;
+    border-radius: 8px;
+    background: white;
+    max-width: 220px;
+    margin: 10px 0;
+  }
+
+  .qr-placeholder {
+    width: 180px;
+    height: 180px;
+    background: #f9f9f9;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    border: 1px dashed #e67e22;
+  }
+
+  /* Receipt Upload Section */
+  #receiptUpload {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e67e22;
+    border-radius: 8px;
+    background: #fffaf5;
+  }
+
+  #paymentReceipt {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+  }
+
+  /* Receipt Preview */
+  #receiptPreview img {
+    max-width: 100%;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+
+  /* Scan Button */
+  .scan-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 15px;
+    transition: background-color 0.3s;
+  }
+
+  .scan-btn:hover {
+    background-color: #d4691f;
+  }
+
+  /* Confirmation message styling */
+  #confirmationMsg {
+    display: none;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* Order type selector */
+  .order-type {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .order-type-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    background: #f5f5f5;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .order-type-btn.active {
+    background: #e67e22;
+    color: white;
+    border-color: #e67e22;
+  }
+  
+  .order-type-btn:hover {
+    border-color: #e67e22;
+  }
+  
+  #itemsSection, #dealsSection {
+    display: none;
+  }
+  
+  #itemsSection.active, #dealsSection.active {
+    display: block;
+  }
+
+  </style>
+</head>
+<body>
+
+ <!-- Navigation -->
+ <nav class="navbar">
+  <div class="logo">Crunch Bite 🍔</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="booking.html">Booking</a></li>
+    <li><a href="order.html">Order</a></li>
+    <li><a href="map.html">Map</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+  </ul>
+</nav>
+
+<div class="section">
+  <h1>Place Your Order</h1>
+  <form id="orderForm">
+    <label>Customer Name</label>
+    <input type="text" id="customerName" required>
+    <br><br>
+
+    <label>Phone Number (for WhatsApp)</label>
+    <input type="text" id="customerPhone" required>
+    <br><br>
+
+    <!-- Order Type Selector -->
+    <div class="order-type">
+      <div class="order-type-btn active" onclick="setOrderType('items')">Items Only</div>
+      <div class="order-type-btn" onclick="setOrderType('deal')">Deal Only</div>
+      <div class="order-type-btn" onclick="setOrderType('both')">Items + Deal</div>
+    </div>
+
+    <!-- Items Section -->
+    <div id="itemsSection" class="active">
+      <h3>Select Items</h3>
+      <div id="itemsContainer"></div>
+      <button type="button" onclick="addItem()">+ Add More Items</button>
+    </div>
+<br><br>
+    <!-- Deals Section -->
+    <div id="dealsSection">
+      <div class="deal-box">
+        <label for="dealSelect">🎉 Select a Deal:</label>
+        <select id="dealSelect" onchange="showDealDetails()">
+          <option value="">-- Choose Deal --</option>
+          <option value="Deal 1">Deal 1</option>
+          <option value="Deal 2">Deal 2</option>
+          <option value="Deal 3">Deal 3</option>
+          <option value="Deal 4">Deal 4</option>
+          <option value="Deal 5">Deal 5</option>
+          <option value="Deal 6">Deal 6</option>
+          <option value="Deal 7">Deal 7</option>
+          <option value="Deal 8">Deal 8</option>
+          <option value="Deal 9">Deal 9</option>
+          <option value="Deal 10">Deal 10</option>
+          <option value="Deal 11">Deal 11</option>
+          <option value="Deal 12">Deal 12</option>
+          <option value="Deal 13">Deal 13</option>
+          <option value="Student Deal A">Student Deal A</option>
+          <option value="Student Deal B">Student Deal B</option>
+        </select>
+        
+        <div id="dealDetails" class="deal-details" style="display:none;">
+          <strong>Deal Contents:</strong> <span id="dealDescription"></span><br>
+          <strong>Deal Price:</strong> Rs. <span id="dealPrice"></span>
+        </div>
+      </div>
+    </div>
+
+    <label>Delivery Address</label>
+    <textarea id="customerAddress" required></textarea>
+<br><br>
+    <label>Distance (in KM)</label>
+    <input type="number" id="distanceKM" min="1" value="1" required />
+<br><br>
+    <label>Delivery Time</label>
+    <input type="time" required>
+<br><br>
+    <label>Payment Method</label>
+    <select id="paymentMethod" required>
+      <option value="">Select</option>
+      <option value="cod">Cash on Delivery</option>
+      <option value="online">Online (EasyPaisa)</option>
+    </select>
+<br><br>
+    <!-- EasyPaisa Payment Box (initially hidden) -->
+    <div id="easypaisaPaymentBox">
+      <h3>EasyPaisa Payment Instructions</h3>
+      <p>Please send payment to:</p>
+      <p><strong>EasyPaisa Number:</strong> <span id="easypaisaNumber">0312-3456789</span></p>
+      <p><strong>Account Name:</strong> <span id="easypaisaName">Crunch Bite Restaurant</span></p>
+      
+      <div id="easypaisaQRCode">
+        <div class="qr-container">
+          <p style="margin: 0 0 5px 0; font-weight: bold; color: #e67e22;">Scan to Pay</p>
+          <div class="qr-placeholder">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=EASYPAISA%3A03123456789%3Famount%3D${encodeURIComponent(document.getElementById('totalBill').innerText.replace('Total: Rs. ',''))}" alt="EasyPaisa QR Code">
+          </div>
+          <p style="margin: 5px 0 0 0; font-size: 12px;">EasyPaisa: 0312-3456789</p>
+        </div>
+      </div>
+      
+      <button type="button" onclick="openScanner()" class="scan-btn">
+        How to Scan QR Code
+      </button>
+    </div>
+
+    <!-- Receipt Upload Section (initially hidden) -->
+    <div id="receiptUpload">
+      <label>Upload EasyPaisa Receipt (Required)</label>
+      <input type="file" id="paymentReceipt" accept="image/*" required>
+      <div id="receiptPreview"></div>
+      <p style="font-size: 12px; color: #666; margin-top: 5px;">Please upload a clear screenshot of your payment receipt</p>
+    </div>
+
+    <div id="totalBill">Total: Rs. 0</div>
+    <button type="submit">Confirm Order & Generate Bill</button>
+
+    <!-- Confirmation Message -->
+    <div id="confirmationMsg"></div>
+
+    <!-- Hidden PDF Content -->
+    <div id="billPDF" style="display:none; padding:20px">
+      <div style="text-align:center">
+        <img src="https://i.imgur.com/mZLZ9nS.png" alt="Crunch Bite Logo" width="100">
+        <h1>Crunch Bite</h1>
+        <h3>Customer Order Receipt</h3>
+      </div>
+      <hr>
+      <p><strong>Date & Time:</strong> <span id="billDateTime"></span></p>
+      <p><strong>Customer Name:</strong> <span id="billCustomer"></span></p>
+      <p><strong>Phone:</strong> <span id="billPhone"></span></p>
+      <p><strong>Delivery Address:</strong> <span id="billAddress"></span></p>
+      <p><strong>Distance:</strong> <span id="billDistance"></span> KM</p>
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Size</th><th>Flavor</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody id="billItemsTable"></tbody>
+      </table>
+      <div id="billDealDetails" style="margin-top: 15px;"></div>
+      <p><strong>Total Bill:</strong> Rs. <span id="billTotal"></span></p>
+      <p><strong>Delivery Charges:</strong> Rs. <span id="deliveryCharges"></span></p>
+      <p><strong>Grand Total:</strong> Rs. <span id="grandTotal"></span></p>
+      <p><strong>Payment Method:</strong> <span id="billPayment"></span></p>
+      <p><strong>Status:</strong> <span id="billStatus"></span></p>
+    </div>
+  </form>
+</div>
+
+<script>
+const menu = {
+  "Pizza": {
+    sizes: {
+      Small: {
+        "Lasania Pizza": 1175,
+        "White Sauce Pizza": 1175,
+        "Chicken Tikka Pizza": 1140,
+        "Hot & Spicy Pizza": 1140,
+        "Fajita Pizza": 1120,
+        "BBQ Chicken Pizza": 1130,
+        "Malai Boti Pizza": 1150,
+        "Seekh Kabab Pizza": 1180,
+        "Smokey Chicken Pizza": 1160,
+        "Chicken Supreme Pizza": 1190,
+        "Crunch Special Pizza": 1200,
+        "Vegetable Pizza": 980,
+        "Cheese Lover Pizza": 1090,
+        "Beef Pepperoni Pizza": 1220
+      },
+      Medium: {
+        "Lasania Pizza": 1480,
+        "White Sauce Pizza": 1480,
+        "Chicken Tikka Pizza": 1440,
+        "Hot & Spicy Pizza": 1440,
+        "Fajita Pizza": 1400,
+        "BBQ Chicken Pizza": 1450,
+        "Malai Boti Pizza": 1470,
+        "Seekh Kabab Pizza": 1490,
+        "Smokey Chicken Pizza": 1460,
+        "Chicken Supreme Pizza": 1500,
+        "Crunch Special Pizza": 1550,
+        "Vegetable Pizza": 1250,
+        "Cheese Lover Pizza": 1370,
+        "Beef Pepperoni Pizza": 1540
+      },
+      Large: {
+        "Lasania Pizza": 1780,
+        "White Sauce Pizza": 1780,
+        "Chicken Tikka Pizza": 1740,
+        "Hot & Spicy Pizza": 1740,
+        "Fajita Pizza": 1700,
+        "BBQ Chicken Pizza": 1750,
+        "Malai Boti Pizza": 1770,
+        "Seekh Kabab Pizza": 1790,
+        "Smokey Chicken Pizza": 1760,
+        "Chicken Supreme Pizza": 1800,
+        "Crunch Special Pizza": 1850,
+        "Vegetable Pizza": 1550,
+        "Cheese Lover Pizza": 1670,
+        "Beef Pepperoni Pizza": 1840
+      },
+      Regular: {
+        "Pizza Doner": 1190
+      }
+    },
+    flavors: [
+      "Lasania Pizza",
+      "White Sauce Pizza",
+      "Chicken Tikka Pizza",
+      "Hot & Spicy Pizza",
+      "Pizza Doner",
+      "Fajita Pizza",
+      "BBQ Chicken Pizza",
+      "Malai Boti Pizza",
+      "Seekh Kabab Pizza",
+      "Smokey Chicken Pizza",
+      "Chicken Supreme Pizza",
+      "Crunch Special Pizza",
+      "Vegetable Pizza",
+      "Cheese Lover Pizza",
+      "Beef Pepperoni Pizza"
+    ]
+  },
+
+  "Burger": {
+    sizes: {
+      Regular: {
+        "Petty Burger": 270,
+        "Zinger Burger": 370,
+        "Tikka Burger": 290,
+        "Double Decker Burger": 645,
+        "Chicken Paratha Roll": 430,
+        "Beef Cheese Burger": 420,
+        "Fish Burger": 440,
+        "Peri Peri Zinger": 490,
+        "Mayo Garlic Burger": 310,
+        "Shami Burger": 230,
+        "Crunchy Chicken Burger": 360,
+        "Egg Burger": 250,
+        "Chapli Burger": 300,
+        "Paneer Tikka Roll": 350,
+        "Beef Seekh Roll": 420
+      }
+    },
+    flavors: [
+      "Petty Burger",
+      "Zinger Burger",
+      "Tikka Burger",
+      "Double Decker Burger",
+      "Chicken Paratha Roll",
+      "Beef Cheese Burger",
+      "Fish Burger",
+      "Peri Peri Zinger",
+      "Mayo Garlic Burger",
+      "Shami Burger",
+      "Crunchy Chicken Burger",
+      "Egg Burger",
+      "Chapli Burger",
+      "Paneer Tikka Roll",
+      "Beef Seekh Roll"
+    ]
+  },
+
+  "Biryani": {
+    portions: {
+      Half: {
+        "Chicken Biryani": 200,
+        "Beef Pulao": 230,
+        "Plain Rice": 150,
+        "Egg Fried Rice": 180,
+        "Vegetable Fried Rice": 170,
+        "Mutton Biryani": 260,
+        "Beef Biryani": 240,
+        "Chinese Rice with Gravy": 490,
+        "Peas Pulao": 160,
+        "Mix Biryani": 250,
+        "Chicken Qabli Pulao": 250,
+        "Yakhni Pulao": 210,
+        "Spicy Chicken Fried Rice": 200,
+        "Beef Yakhni Pulao": 220,
+        "Sindhi Biryani": 250
+      },
+      Full: {
+        "Chicken Biryani": 330,
+        "Beef Pulao": 370,
+        "Plain Rice": 250,
+        "Egg Fried Rice": 310,
+        "Vegetable Fried Rice": 290,
+        "Mutton Biryani": 430,
+        "Beef Biryani": 390,
+        "Chinese Rice with Gravy": 890,
+        "Peas Pulao": 270,
+        "Mix Biryani": 410,
+        "Chicken Qabli Pulao": 410,
+        "Yakhni Pulao": 360,
+        "Spicy Chicken Fried Rice": 340,
+        "Beef Yakhni Pulao": 380,
+        "Sindhi Biryani": 420
+      }
+    },
+    flavors: [
+      "Chicken Biryani",
+      "Beef Biryani",
+      "Mutton Biryani",
+      "Mix Biryani",
+      "Sindhi Biryani",
+      "Chicken Qabli Pulao",
+      "Beef Pulao",
+      "Yakhni Pulao",
+      "Beef Yakhni Pulao",
+      "Egg Fried Rice",
+      "Spicy Chicken Fried Rice",
+      "Peas Pulao",
+      "Chinese Rice with Gravy",
+      "Vegetable Fried Rice",
+      "Plain Rice",
+    ]
+  },
+  "Fries": {
+    sizes: {
+      Regular: {
+        "Regular Fries": 170,
+        "Garlic Mayo Fries": 250,
+        "Loaded Fries with Chicken": 350,
+        "Cheese Loaded Fries": 380,
+        "BBQ Loaded Fries": 360,
+        "Peri Peri Fries": 330,
+        "Masala Fries": 230,
+        "Crinkle Fries": 220,
+        "Curly Fries": 260,
+        "Chilli Garlic Fries": 310,
+        "Twister Fries": 280,
+        "Chilli Mayo Loaded Fries": 360
+      },
+      Family: {
+        "Family Pack Fries": 320
+      }
+    },
+    flavors: [
+      "Salted",
+      "Spicy",
+      "Garlic Mayo",
+      "BBQ",
+      "Cheese",
+      "Masala",
+      "Peri Peri",
+      "Chilli Garlic",
+      "Chilli Mayo"
+    ]
+  },
+
+  "Cold Drink": {
+    sizes: {
+      Regular: {
+        "Coca Cola": 90,
+        "Pepsi": 90,
+        "Fanta": 90,
+        "7Up": 90,
+        "Sprite": 90,
+        "Marinda": 90,
+        "Pakola Ice Cream Soda": 100,
+        "Pakola Lychee": 100,
+        "Slice Mango": 110,
+        "Fruitien Juice": 150,
+        "Mazaa": 110,
+        "Red Bull": 350,
+        "Mineral Water": 50,
+        "Ice Cold Lemonade": 199,
+        "Mint Margarita": 280
+      },
+      Large: {
+        "Coca Cola": 180,
+        "Pepsi": 180,
+        "Fanta": 180,
+        "7Up": 180,
+        "Sprite": 180,
+        "Mineral Water": 90
+      }
+    },
+    flavors: [
+      "Coca Cola",
+      "Pepsi",
+      "Fanta",
+      "7Up",
+      "Sprite",
+      "Marinda",
+      "Pakola Ice Cream Soda",
+      "Pakola Lychee",
+      "Slice Mango",
+      "Fruitien Juice",
+      "Mazaa",
+      "Red Bull",
+      "Mineral Water",
+      "Ice Cold Lemonade",
+      "Mint Margarita"
+    ]
+  },
+  "BBQ": {
+    "sizes": {
+      "Regular": {
+        "Chicken Tikka Piece (Leg)": 390,
+        "Chicken Tikka Piece (Breast)": 450,
+        "Chicken Reshmi Kabab (6pc)": 1090,
+        "Chicken Malai Boti (8pc)": 850,
+        "Chicken Seekh Kabab (4pc)": 490,
+        "Beef Seekh Kabab (4pc)": 590,
+        "Beef Bihari Boti": 880,
+        "Mutton Chops BBQ": 1250,
+        "Chicken Wings BBQ (6pc)": 640,
+        "Chicken Chargha (Full)": 1190,
+        "Grilled Fish Fillet": 990,
+        "BBQ Platter for Family (4–5 pax)": 3690,
+        "B.B.Q Special Platter (2 person)": 1990,
+        "Tandoori Roti": 25,
+        "Butter Naan": 40,
+        "Garlic Naan": 60
+      },
+      "Half": {
+        "Chicken Chargha (Half)": 690
+      },
+      "Large": {
+        "Chicken Malai Boti (12pc)": 1150,
+        "Chicken Seekh Kabab (6pc)": 690,
+        "Chicken Wings BBQ (10pc)": 890
+      }
+    },
+    "flavors": [
+      "Chicken Tikka",
+      "Chicken Reshmi Kabab",
+      "Chicken Malai Boti",
+      "Chicken Seekh Kabab",
+      "Beef Seekh Kabab",
+      "Beef Bihari Boti",
+      "Mutton Chops",
+      "Chicken Wings BBQ",
+      "Chicken Chargha",
+      "Grilled Fish Fillet",
+      "BBQ Special Platter",
+      "BBQ Platter for Family",
+      "Tandoori Roti",
+      "Butter Naan",
+      "Garlic Naan"
+    ],
+    "portions": [
+      "Leg", "Breast", "Full", "Half", "4pc", "6pc", "8pc", "10pc", "2 person", "4–5 pax"
+    ],
+    "categories": [
+      "Chicken",
+      "Beef",
+      "Mutton",
+      "Fish",
+      "Platter",
+      "Tandoori Breads"
+    ]
+  },
+  "KarahiHandi": {
+    "sizes": {
+      "Half": {
+        "Chicken White Karahi": 1045,
+        "Desi Murgh Karahi": 2145,
+        "Beef Karahi Spicy": 1050
+      },
+      "Full": {
+        "Chicken White Karahi": 1950,
+        "Desi Murgh Karahi": 3495,
+        "Beef Karahi Spicy": 1850
+      },
+      "Single Bowl": {
+        "Beef Paya": 880
+      },
+      "1 Bowl": {
+        "Mutton Paya": 980
+      },
+      "Boneless": {
+        "Mutton Handi": 2490,
+        "Beef Handi": 990
+      },
+      "Regular": {
+        "Mutton White Karahi": 2195,
+        "Mutton Black Pepper Karahi": 2290,
+        "Mutton Roghan Josh": 2390,
+        "Mutton Qorma": 2250,
+        "Mutton Kadhai Lahori": 2295,
+        "Mutton Kunna": 2190,
+        "Beef Nihari": 780,
+        "Beef Qeema Fry": 750,
+        "Beef Kunna": 990
+      }
+    },
+    "flavors": [
+      "Chicken White Karahi",
+      "Mutton White Karahi",
+      "Desi Murgh Karahi",
+      "Mutton Black Pepper Karahi",
+      "Mutton Handi",
+      "Mutton Roghan Josh",
+      "Mutton Qorma",
+      "Mutton Kadhai Lahori",
+      "Mutton Paya",
+      "Mutton Kunna",
+      "Beef Nihari",
+      "Beef Qeema Fry",
+      "Beef Handi",
+      "Beef Karahi Spicy",
+      "Beef Paya",
+      "Beef Kunna"
+    ],
+    "portions": [
+      "Half", "Full", "Boneless", "Regular", "Single Bowl", "1 Bowl"
+    ],
+    "categories": [
+      "Chicken", "Mutton", "Beef"
+    ]
+  },
+  "Chinese": {
+    "sizes": {
+      "Regular": {
+        "Chicken Manchurian": 890,
+        "Chicken Chow Mein": 840,
+        "Chinese Rice with Gravy": 890,
+        "Beef Chili Dry": 940,
+        "Hot & Sour Chicken": 920,
+        "Schezwan Chicken": 930,
+        "Kung Pao Chicken": 950,
+        "Egg Fried Rice": 310,
+        "Vegetable Chow Mein": 770,
+        "Beef Black Pepper": 980,
+        "Garlic Chicken Gravy": 910,
+        "Chicken Fried Rice": 820,
+        "Szechuan Fried Rice": 860,
+        "Thai Chicken with Cashew Nuts": 990,
+        "Dry Chicken Chili": 900
+      }
+    },
+    "flavors": [
+      "Chicken Manchurian",
+      "Chicken Chow Mein",
+      "Chinese Rice with Gravy",
+      "Beef Chili Dry",
+      "Hot & Sour Chicken",
+      "Schezwan Chicken",
+      "Kung Pao Chicken",
+      "Egg Fried Rice",
+      "Vegetable Chow Mein",
+      "Beef Black Pepper",
+      "Garlic Chicken Gravy",
+      "Chicken Fried Rice",
+      "Szechuan Fried Rice",
+      "Thai Chicken with Cashew Nuts",
+      "Dry Chicken Chili"
+    ],
+    "categories": [
+      "Chicken",
+      "Beef",
+      "Rice",
+      "Noodles",
+      "Vegetarian"
+    ],
+    "portions": [
+      "Regular"
+    ]
+  },
+
+  "Beverages": {
+    "sizes": {
+      "Standard": {
+        "Mint Margarita": 280,
+        "Oreo Shake": 360,
+        "Chocolate Shake": 360,
+        "Strawberry Shake": 360,
+        "Vanilla Shake": 350,
+        "Banana Shake": 340,
+        "Cold Coffee": 380,
+        "Iced Latte": 399,
+        "Fresh Lime Soda (Sweet/Salted)": 180,
+        "Fresh Orange Juice": 290,
+        "Mango Juice (Seasonal)": 300,
+        "Grape Juice": 280,
+        "Watermelon Juice": 270,
+        "Karak Chai": 130,
+        "Green Tea": 99,
+        "Masala Chai": 120,
+        "Black Coffee": 160,
+        "Hot Chocolate": 220,
+        "Tandoori Chai": 150,
+        "Badam Milk (Hot)": 190
+      }
+    },
+    "flavors": [
+      "Mint Margarita",
+      "Oreo Shake",
+      "Chocolate Shake",
+      "Strawberry Shake",
+      "Vanilla Shake",
+      "Banana Shake",
+      "Cold Coffee",
+      "Iced Latte",
+      "Fresh Lime Soda (Sweet/Salted)",
+      "Fresh Orange Juice",
+      "Mango Juice (Seasonal)",
+      "Grape Juice",
+      "Watermelon Juice",
+      "Karak Chai",
+      "Green Tea",
+      "Masala Chai",
+      "Black Coffee",
+      "Hot Chocolate",
+      "Tandoori Chai",
+      "Badam Milk (Hot)"
+    ],
+    "categories": [
+      "Juices",
+      "Milkshakes",
+      "Teas",
+      "Coffees",
+      "Sodas"
+    ],
+    "portions": [
+      "Standard"
+    ]
+  },
+  "Shawarma": {
+    "sizes": {
+      "Standard": {
+        "Classic Chicken Shawarma": 250,
+        "Zinger Shawarma": 300,
+        "Beef Shawarma": 290,
+        "Cheese Shawarma": 330,
+        "Spicy Shawarma": 270,
+        "Garlic Mayo Shawarma": 280,
+        "Paneer Shawarma": 310,
+        "Doner Shawarma": 340,
+        "BBQ Shawarma": 300,
+        "Peri Peri Shawarma": 350,
+        "Double Cheese Shawarma": 370,
+        "Chicken Malai Shawarma": 290,
+        "Fajita Shawarma": 330,
+        "Jumbo Shawarma": 420,
+        "Crunchy Shawarma": 380
+      }
+    },
+    "flavors": [
+      "Classic Chicken Shawarma",
+      "Zinger Shawarma",
+      "Beef Shawarma",
+      "Cheese Shawarma",
+      "Spicy Shawarma",
+      "Garlic Mayo Shawarma",
+      "Paneer Shawarma",
+      "Doner Shawarma",
+      "BBQ Shawarma",
+      "Peri Peri Shawarma",
+      "Double Cheese Shawarma",
+      "Chicken Malai Shawarma",
+      "Fajita Shawarma",
+      "Jumbo Shawarma",
+      "Crunchy Shawarma"
+    ],
+    "categories": [
+      "Chicken",
+      "Beef",
+      "Paneer",
+      "Cheese",
+      "Spicy",
+      "Jumbo",
+      "Zinger"
+    ],
+    "portions": [
+      "Standard"
+    ]
+  },
+
+
+  "Daal": {
+    "sizes": {
+      "Half": {
+        "Daal Chana": 190
+      },
+      "Full": {
+        "Daal Chana": 330
+      },
+      "Regular": {
+        "Daal Mash": 330,
+        "Daal Maash Fry": 360,
+        "Daal Masoor": 310,
+        "Mix Daal": 340,
+        "Spicy Daal Fry": 360,
+        "Daal Palak": 370,
+        "Daal Tadka": 320,
+        "Punjabi Daal": 310,
+        "Butter Daal Fry": 390,
+        "Desi Ghee Daal": 410,
+        "Daal Makhani": 430,
+        "Simple Daal Soup Style": 290,
+        "Daal with Boiled Egg": 360,
+        "Dry Daal Chawal Combo": 370
+      }
+    },
+    "flavors": [
+      "Daal Chana",
+      "Daal Mash",
+      "Daal Maash Fry",
+      "Daal Masoor",
+      "Mix Daal",
+      "Spicy Daal Fry",
+      "Daal Palak",
+      "Daal Tadka",
+      "Punjabi Daal",
+      "Butter Daal Fry",
+      "Desi Ghee Daal",
+      "Daal Makhani",
+      "Simple Daal Soup Style",
+      "Daal with Boiled Egg",
+      "Dry Daal Chawal Combo"
+    ],
+    "portions": [
+      "Half", "Full", "Regular"
+    ],
+    "categories": [
+      "Vegetarian", "Combo", "Soup Style"
+    ]
+  },
+  "Vegetables": {
+    "sizes": {
+      "Half": {
+        "Aloo Gobi": 210,
+        "Bhindi Fry": 205,
+        "Lauki (Bottle Gourd)": 190,
+        "Mix Vegetable": 220,
+        "Palak Paneer": 260,
+        "Shimla Mirch Aloo": 195,
+        "Tinday Masala": 180,
+        "Baingan Bharta": 200,
+        "Karela Fry": 210,
+        "Chana with Lauki": 205,
+        "Sarson Ka Saag": 260,
+        "Arvi Masala": 190,
+        "Chana Dal with Tori": 210,
+        "Stuffed Capsicum": 235,
+        "Paneer Bhurji": 270
+      },
+      "Full": {
+        "Aloo Gobi": 350,
+        "Bhindi Fry": 340,
+        "Lauki (Bottle Gourd)": 310,
+        "Mix Vegetable": 360,
+        "Palak Paneer": 430,
+        "Shimla Mirch Aloo": 320,
+        "Tinday Masala": 300,
+        "Baingan Bharta": 330,
+        "Karela Fry": 350,
+        "Chana with Lauki": 340,
+        "Sarson Ka Saag": 430,
+        "Arvi Masala": 310,
+        "Chana Dal with Tori": 350,
+        "Stuffed Capsicum": 390,
+        "Paneer Bhurji": 450
+      }
+    },
+    "flavors": [
+      "Aloo Gobi",
+      "Bhindi Fry",
+      "Lauki (Bottle Gourd)",
+      "Mix Vegetable",
+      "Palak Paneer",
+      "Shimla Mirch Aloo",
+      "Tinday Masala",
+      "Baingan Bharta",
+      "Karela Fry",
+      "Chana with Lauki",
+      "Sarson Ka Saag",
+      "Arvi Masala",
+      "Chana Dal with Tori",
+      "Stuffed Capsicum",
+      "Paneer Bhurji"
+    ],
+    "portions": [
+      "Half", "Full"
+    ],
+    "categories": [
+      "Vegetarian",
+      "Paneer",
+      "Lentil Mixed",
+      "Green Leafy"
+    ]
+  },
+  "Chicken Lover Specials": {
+    "sizes": {
+      "Half": {
+        "Chicken Malai Boti": 550,
+        "Chicken Seekh Kabab": 430,
+        "Chicken Steam Roast": 510,
+        "Chicken Karahi Boneless": 960
+      },
+      "Full": {
+        "Chicken Malai Boti": 990,
+        "Chicken Seekh Kabab": 790,
+        "Chicken Steam Roast": 890,
+        "Chicken Karahi Boneless": 1740
+      },
+      "Standard": {
+        "Chicken Tikka Boti": 540,
+        "Chicken Wings (6pc)": 430,
+        "Chicken Nuggets (8pc)": 370,
+        "Chicken Cheese Balls": 410,
+        "Chicken Popcorn": 390,
+        "Chicken Tempura": 460,
+        "Chicken Strip Platter": 540,
+        "Spicy Chicken Pieces": 390,
+        "BBQ Chicken Loaded Box": 690,
+        "Grilled Chicken Steak": 750,
+        "Special Chicken Platter": 1250
+      }
+    },
+    "flavors": [
+      "Chicken Malai Boti",
+      "Chicken Seekh Kabab",
+      "Chicken Tikka Boti",
+      "Chicken Steam Roast",
+      "Chicken Wings",
+      "Chicken Nuggets",
+      "Chicken Cheese Balls",
+      "Chicken Popcorn",
+      "Chicken Tempura",
+      "Chicken Strip Platter",
+      "Spicy Chicken Pieces",
+      "BBQ Chicken Loaded Box",
+      "Grilled Chicken Steak",
+      "Chicken Karahi Boneless",
+      "Special Chicken Platter"
+    ],
+    "categories": [
+      "BBQ",
+      "Fried",
+      "Boneless",
+      "Karahi",
+      "Platter",
+      "Steak",
+      "Spicy"
+    ],
+    "portions": [
+      "Standard",
+      "Half",
+      "Full"
+    ]
+  },
+
+
+  "Salad-Raita": {
+    "sizes": {
+      "Regular": {
+        "Plain Raita": 90,
+        "Zeera Raita": 110,
+        "Mint Raita": 120,
+        "Russian Salad": 230,
+        "Fresh Garden Salad": 150,
+        "Coleslaw": 130,
+        "Macaroni Salad": 170,
+        "Fruit Salad": 190,
+        "Spicy Chickpea Salad": 160,
+        "Cucumber Yogurt Salad": 140
+      }
+    },
+    "flavors": [
+      "Plain Raita",
+      "Zeera Raita",
+      "Mint Raita",
+      "Russian Salad",
+      "Fresh Garden Salad",
+      "Coleslaw",
+      "Macaroni Salad",
+      "Fruit Salad",
+      "Spicy Chickpea Salad",
+      "Cucumber Yogurt Salad"
+    ],
+    "portions": [
+      "Regular"
+    ],
+    "categories": [
+      "Raita",
+      "Salad",
+      "Yogurt-Based",
+      "Vegetarian"
+    ]
+  },
+
+  
+  "Deals": {
+    deals: {
+      "Deal 1": {
+        "description": "2 Petty Burgers + 1 Regular Fries + 1 Pepsi",
+        "price": 530
+      },
+      "Deal 2": {
+        "description": "1 Chicken Biryani + 1 Raita + 1 Cold Drink",
+        "price": 420
+      },
+      "Deal 3": {
+        "description": "1 Zinger Burger + 1 Garlic Fries + 1 Drink",
+        "price": 590
+      },
+      "Deal 4": {
+        "description": "1 Chicken Shawarma + 1 Cold Drink",
+        "price": 370
+      },
+      "Deal 5": {
+        "description": "1 Small Pizza (any flavor) + 1 Regular Fries + 1 Drink",
+        "price": 890
+      },
+      "Deal 6": {
+        "description": "1 Pasta Bowl + 2 Garlic Bread + 1 Mint Margarita",
+        "price": 690
+      },
+      "Deal 7": {
+        "description": "Chicken Fried Rice (Full) + Chicken Manchurian + 2 Cold Drinks",
+        "price": 950
+      },
+      "Deal 8": {
+        "description": "1 Chicken Tikka Piece + 2 Roti + 1 Raita + 1 Drink",
+        "price": 490
+      },
+      "Deal 9": {
+        "description": "2 Shawarma + 1 Family Fries + 2 Drinks",
+        "price": 850
+      },
+      "Deal 10": {
+        "description": "10 Wings + 1 Zinger + 1 Garlic Fries + 2 Pepsi",
+        "price": 650
+      },
+      "Deal 11": {
+        "description": "1 Loaded Fries + 1 Oreo Shake",
+        "price": 470
+      },
+      "Deal 12": {
+        "description": "Chinese Platter (2 Chow Mein + 2 Manchurian + 2 Drinks)",
+        "price": 1290
+      },
+      "Deal 13": {
+        "description": "2 Large Pizzas + 2 Family Fries + 1.5L Drink",
+        "price": 5990
+      },
+      "Student Deal A": {
+        "description": "1 Petty Burger + 1 Cold Drink",
+        "price": 270
+      },
+      "Student Deal B": {
+        "description": "1 Chicken Roll + 1 Mint Margarita",
+        "price": 390
+      }
+    }
+  }
+};
+
+// Order type management
+let currentOrderType = 'items';
+
+function setOrderType(type) {
+  currentOrderType = type;
+  
+  // Update button styles
+  document.querySelectorAll('.order-type-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  // Show/hide sections
+  document.getElementById('itemsSection').classList.remove('active');
+  document.getElementById('dealsSection').classList.remove('active');
+  
+  if (type === 'items') {
+    document.getElementById('itemsSection').classList.add('active');
+    document.getElementById('dealSelect').value = '';
+    document.getElementById('dealDetails').style.display = 'none';
+  } else if (type === 'deal') {
+    document.getElementById('dealsSection').classList.add('active');
+    document.getElementById('itemsContainer').innerHTML = '';
+  } else if (type === 'both') {
+    document.getElementById('itemsSection').classList.add('active');
+    document.getElementById('dealsSection').classList.add('active');
+  }
+  
+  updateTotal();
+}
+
+// Deal management functions
+function showDealDetails() {
+  const dealSelect = document.getElementById('dealSelect');
+  const dealDetails = document.getElementById('dealDetails');
+  const dealDescription = document.getElementById('dealDescription');
+  const dealPrice = document.getElementById('dealPrice');
+  
+  const selectedDeal = dealSelect.value;
+  
+  if (selectedDeal && menu.Deals.deals[selectedDeal]) {
+    dealDescription.textContent = menu.Deals.deals[selectedDeal].description;
+    dealPrice.textContent = menu.Deals.deals[selectedDeal].price;
+    dealDetails.style.display = 'block';
+  } else {
+    dealDetails.style.display = 'none';
+  }
+  updateTotal();
+}
+
+function addItem() {
+  const container = document.getElementById('itemsContainer');
+  const div = document.createElement('div');
+  div.className = 'item-block';
+  div.innerHTML = `
+    <select onchange="updateOptions(this)" required>
+      <option value="">-- Select Item --</option>
+      ${Object.keys(menu).filter(item => item !== 'Deals').map(item => `<option value="${item}">${item}</option>`).join("")}
+    </select>
+    <select class="size" required><option value="">Size/Portion</option></select>
+    <select class="flavor" required><option value="">Flavor</option></select>
+    <input type="number" class="qty" placeholder="Qty" min="1" required>
+    <button type="button" onclick="this.parentElement.remove(); updateTotal()" style="background: #dc3545; margin-top: 0;">×</button>
+  `;
+  container.appendChild(div);
+}
+
+function updateOptions(select) {
+  const item = select.value;
+  const block = select.parentElement;
+  const sizeSelect = block.querySelector('.size');
+  const flavorSelect = block.querySelector('.flavor');
+  sizeSelect.innerHTML = `<option value="">Size/Portion</option>`;
+  flavorSelect.innerHTML = `<option value="">Flavor</option>`;
+
+  if (!menu[item]) return;
+  
+  // Handle different item structures (some use sizes, some use portions)
+  const sizeKey = menu[item].sizes ? 'sizes' : 'portions';
+  const sizes = menu[item][sizeKey] || {};
+  
+  // Get the first flavor to use for populating sizes
+  const firstFlavor = menu[item].flavors ? menu[item].flavors[0] : null;
+  
+  for (const size in sizes) {
+    if (typeof sizes[size] === 'object') {
+      // If sizes[size] is an object (like pizza sizes with different prices per flavor)
+      if (firstFlavor && sizes[size][firstFlavor]) {
+        const price = sizes[size][firstFlavor];
+        sizeSelect.innerHTML += `<option value="${size}" data-price="${price}">${size} - Rs. ${price}</option>`;
+      }
+    } else {
+      // If sizes[size] is a direct price (like burgers)
+      const price = sizes[size];
+      sizeSelect.innerHTML += `<option value="${size}" data-price="${price}">${size} - Rs. ${price}</option>`;
+    }
+  }
+  
+  for (const f of menu[item].flavors || []) {
+    flavorSelect.innerHTML += `<option value="${f}">${f}</option>`;
+  }
+  updateTotal();
+}
+
+document.getElementById('itemsContainer').addEventListener('input', updateTotal);
+document.getElementById('dealSelect').addEventListener('change', updateTotal);
+document.getElementById('distanceKM').addEventListener('input', updateTotal);
+
+function updateTotal() {
+  let itemsTotal = 0;
+  let dealTotal = 0;
+  
+  // Calculate regular items total only if items section is active
+  if (currentOrderType === 'items' || currentOrderType === 'both') {
+    document.querySelectorAll('.item-block').forEach(block => {
+      const size = block.querySelector('.size');
+      const qty = block.querySelector('.qty').value;
+      const price = size.options[size.selectedIndex]?.dataset.price;
+      if (price && qty) itemsTotal += parseInt(price) * parseInt(qty);
+    });
+  }
+  
+  // Calculate deal total if deals section is active and deal is selected
+  if (currentOrderType === 'deal' || currentOrderType === 'both') {
+    const dealSelect = document.getElementById('dealSelect');
+    const selectedDeal = dealSelect.value;
+    if (selectedDeal && menu.Deals.deals[selectedDeal]) {
+      dealTotal = menu.Deals.deals[selectedDeal].price;
+    }
+  }
+  
+  // Calculate delivery fee
+  const distance = parseInt(document.getElementById('distanceKM').value || 0);
+  const deliveryFee = distance * 50;
+  
+  // Update total display
+  const grandTotal = itemsTotal + dealTotal + deliveryFee;
+  document.getElementById('totalBill').innerText = `Total: Rs. ${grandTotal}`;
+  
+  return { 
+    itemsTotal: itemsTotal, 
+    dealTotal: dealTotal, 
+    deliveryFee: deliveryFee, 
+    grandTotal: grandTotal 
+  };
+}
+
+// Payment Method Toggle
+document.getElementById('paymentMethod').addEventListener('change', function(e) {
+  const paymentMethod = e.target.value;
+  const easypaisaBox = document.getElementById('easypaisaPaymentBox');
+  const receiptUpload = document.getElementById('receiptUpload');
+  
+  // Hide boxes initially
+  easypaisaBox.style.display = 'none';
+  receiptUpload.style.display = 'none';
+  
+  if (paymentMethod === 'online') {
+    // Show EasyPaisa options
+    easypaisaBox.style.display = 'block';
+    receiptUpload.style.display = 'block';
+    // generate scanner
+    document.getElementById('easypaisaQRCode').innerHTML = `
+      <div class="qr-container">
+        <p style="margin:0; font-weight:bold; color:#e67e22;">Scan to Pay</p>
+        <div class="qr-placeholder">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=EASYPAISA%3A03123456789%3Famount%3D${encodeURIComponent(document.getElementById('totalBill').innerText.replace('Total: Rs. ',''))}" alt="EasyPaisa QR Code">
+        </div>
+        <p style="margin:5px 0 0 0; font-size:13px; color:#666;">
+          EasyPaisa: 0312-3456789
+        </p>
+      </div>
+    `;
+  }
+});
+
+// QR Code Scanner Instructions
+function openScanner() {
+  const totalAmount = document.getElementById('totalBill').innerText;
+  alert(`PAYMENT INSTRUCTIONS:\n\n1. Open EasyPaisa App\n2. Tap 'Scan QR Code'\n3. Scan the code above\n4. Enter ${totalAmount}\n5. Complete payment\n\nAfter paying, upload your receipt below.`);
+}
+
+// Receipt Upload Handler
+document.getElementById("paymentReceipt").addEventListener("change", function(e) {
+  const preview = document.getElementById("receiptPreview");
+  preview.innerHTML = "";
+  
+  if (e.target.files.length > 0) {
+    const file = e.target.files[0];
+    
+    // Validate file type
+    if (!file.type.match('image.*')) {
+      alert("Only image files (JPEG/PNG) are allowed");
+      e.target.value = '';
+      return;
+    }
+    
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      alert("File too large! Max 2MB allowed");
+      e.target.value = '';
+      return;
+    }
+    
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+      preview.innerHTML = `
+        <p style="font-weight:bold; margin:10px 0 5px 0;">Receipt Preview:</p>
+        <img src="${event.target.result}" alt="Payment Receipt">
+        <p style="font-size:12px; color:#666; margin-top:5px;">
+          Verify transaction details are visible
+        </p>
+      `;
+    };
+    
+    reader.onerror = function() {
+      alert("Error loading file. Please try another image.");
+      e.target.value = '';
+    };
+    
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Validate form based on order type
+  if (currentOrderType === 'items' && document.querySelectorAll('.item-block').length === 0) {
+    alert("Please add at least one item to your order");
+    return;
+  }
+  
+  if (currentOrderType === 'deal' && document.getElementById('dealSelect').value === '') {
+    alert("Please select a deal");
+    return;
+  }
+  
+  if (currentOrderType === 'both' && 
+      (document.querySelectorAll('.item-block').length === 0 || document.getElementById('dealSelect').value === '')) {
+    alert("Please add at least one item and select a deal");
+    return;
+  }
+  
+  const now = new Date();
+  const { itemsTotal, dealTotal, deliveryFee, grandTotal } = updateTotal();
+
+  // Fill in bill details
+  document.getElementById('billDateTime').innerText = now.toLocaleString();
+  document.getElementById('billCustomer').innerText = document.getElementById('customerName').value;
+  document.getElementById('billPhone').innerText = document.getElementById('customerPhone').value;
+  document.getElementById('billAddress').innerText = document.getElementById('customerAddress').value;
+  document.getElementById('billDistance').innerText = document.getElementById('distanceKM').value;
+  document.getElementById('billTotal').innerText = itemsTotal + dealTotal;
+  document.getElementById('deliveryCharges').innerText = deliveryFee;
+  document.getElementById('grandTotal').innerText = grandTotal;
+  document.getElementById('billPayment').innerText = document.getElementById('paymentMethod').value === 'online' ? 'Online (EasyPaisa)' : 'Cash on Delivery';
+  document.getElementById('billStatus').innerText = document.getElementById('paymentMethod').value === 'online' ? 'Pending Verification' : 'Pending Payment';
+
+  // Fill in items table
+  const table = document.getElementById('billItemsTable');
+  table.innerHTML = '';
+  
+  // Add regular items to bill if items section is active
+  if (currentOrderType === 'items' || currentOrderType === 'both') {
+    document.querySelectorAll('.item-block').forEach(block => {
+      const itemType = block.querySelector('select').value;
+      const size = block.querySelector('.size').value;
+      const flavor = block.querySelector('.flavor').value;
+      const qty = parseInt(block.querySelector('.qty').value);
+      const price = parseInt(block.querySelector('.size').selectedOptions[0].dataset.price);
+      const subtotal = qty * price;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${itemType}</td>
+        <td>${size}</td>
+        <td>${flavor}</td>
+        <td>${qty}</td>
+        <td>Rs. ${price}</td>
+        <td>Rs. ${subtotal}</td>
+      `;
+      table.appendChild(row);
+    });
+  }
+  
+  // Add deal to bill if deals section is active
+  const dealDetails = document.getElementById('billDealDetails');
+  dealDetails.innerHTML = '';
+  
+  if (currentOrderType === 'deal' || currentOrderType === 'both') {
+    const dealSelect = document.getElementById('dealSelect');
+    const selectedDeal = dealSelect.value;
+    if (selectedDeal && menu.Deals.deals[selectedDeal]) {
+      const dealRow = document.createElement('tr');
+      dealRow.innerHTML = `
+        <td colspan="3"><strong>${selectedDeal}</strong><br>${menu.Deals.deals[selectedDeal].description}</td>
+        <td>1</td>
+        <td>Rs. ${menu.Deals.deals[selectedDeal].price}</td>
+        <td>Rs. ${menu.Deals.deals[selectedDeal].price}</td>
+      `;
+      table.appendChild(dealRow);
+      
+      dealDetails.innerHTML = `
+        <p><strong>Deal:</strong> ${selectedDeal} - ${menu.Deals.deals[selectedDeal].description}</p>
+        <p><strong>Deal Price:</strong> Rs. ${menu.Deals.deals[selectedDeal].price}</p>
+      `;
+    }
+  }
+ 
+  // Show confirmation message
+  const confirmationBox = document.getElementById('confirmationMsg');
+  confirmationBox.style.display = 'block';
+  confirmationBox.innerText = `Thank you! Your order has been placed. Grand Total: Rs. ${grandTotal}`;
+
+  // Generate PDF
+  const billDiv = document.getElementById('billPDF');
+  billDiv.style.display = 'block';
+  
+  // Generate WhatsApp message
+  const msg = `Hello ${document.getElementById('customerName').value}, your Crunch Bite order has been confirmed.\nTotal: Rs. ${grandTotal}\nWe will deliver to: ${document.getElementById('customerAddress').value}.\nThank you!`;
+  const phone = document.getElementById('customerPhone').value.replace(/\D/g, '');
+  
+  // Save PDF and open WhatsApp
+  const options = {
+    margin: 10,
+    filename: `CrunchBite_Receipt_${now.getTime()}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(options).from(billDiv).save().then(() => {
+    billDiv.style.display = 'none';
+    window.open(`https://wa.me/92${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+
+  // Reset form
+  this.reset();
+  document.getElementById('itemsContainer').innerHTML = '';
+  document.getElementById('dealSelect').value = '';
+  document.getElementById('dealDetails').style.display = 'none';
+  setOrderType('items'); // Reset to default order type
+  document.getElementById('totalBill').innerText = 'Total: Rs. 0';
+  document.getElementById('receiptUpload').style.display = 'none';
+  document.getElementById('easypaisaPaymentBox').style.display = 'none';
+});
+
+// Initialize with one item block
+addItem();
+</script>
+
+</body>
+</html>

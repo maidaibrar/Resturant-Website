@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crunch Bite | Home & Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f3d9bd;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* ============ LOGIN FORM ============= */
+    #login-section {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1606787366850-de6330128bfc') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      width: 350px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      color: #e74c3c;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #c0392b;
+    }
+
+    .login-box .link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .login-box .link a {
+      color: #e74c3c;
+      text-decoration: none;
+    }
+
+    .login-box .link a:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* ========== HOME SECTION ============ */
+    #home-section {
+      display: none;
+    }
+
+    .navbar {
+      background-color: #2c2c2c;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 40px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #e67e22;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #e67e22;
+    }
+
+    .hero {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1555992336-03a23c3bf6c6?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-text {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px 60px;
+      border-radius: 10px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1.5rem;
+      color: #f9c784;
+    }
+
+    .cta-section {
+      padding: 60px 20px;
+      background-color: #fff8f0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #e67e22;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    footer {
+      background-color: #2c2c2c;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-text p { font-size: 1.2rem; }
+      .cta-section h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SECTION -->
+  <section id="login-section">
+    <div class="login-box" id="form-container">
+      <h2>Crunch Bite Login</h2>
+      <div class="message" id="message"></div>
+      <form onsubmit="return handleLogin(event)">
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <input type="password" id="password" placeholder="Enter your password" required />
+        <button type="submit">Login</button>
+      </form>
+      <div class="link">
+        Don't have an account? <a href="#" onclick="showSignup()">Sign up</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME SECTION -->
+ 
+      <nav class="navbar">
+        <div class="logo" onclick="showSection('home')">Crunch Bite 🍔</div>
+        <ul class="nav-links">
+          <li><a href="index.html " onclick="showSection('home')">Home</a></li>
+          <li><a href="about.html" onclick="showSection('about')">About Us</a></li>
+          <li><a href="menu.html" onclick="showSection('menu')">Menu</a></li>
+          <li><a href="booking.html" onclick="showSection('booking')">Booking</a></li>
+          <li><a href="order.html" onclick="showSection('order')">Order</a></li>
+          <li><a href="map.html" onclick="showSection('map')">Map</a></li>
+          <li><a href="contact.html" onclick="showSection('contact')">Contact Us</a></li>
+          <li><a href="reviews.html" onclick="showSection('reviews')">Reviews</a></li>
+        </ul>
+      </nav>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Welcome to Crunch Bite</h1>
+        <p>Where Taste Meets Elegance</p>
+      </div>
+    </header>
+
+    <section class="cta-section">
+      <h2>Delicious Food Awaits!</h2>
+      <p>Explore our menu, meet our chef, or book a party. We deliver unforgettable taste and service.</p>
+    </section>
+
+    <footer>
+      &copy; 2025 Crunch Bite Fast Food Corner | All Rights Reserved
+    </footer>
+  </section>
+
+  <script>
+    function showSignup() {
+      document.getElementById('form-container').innerHTML = `
+        <h2>Crunch Bite Signup</h2>
+        <div class="message" id="message"></div>
+        <form onsubmit="return handleSignup(event)">
+          <input type="email" id="signupEmail" placeholder="Enter your email" required>
+          <input type="password" id="signupPassword" placeholder="Create a password" required>
+          <button type="submit">Sign Up</button>
+        </form>
+        <div class="link">
+          Already have an account? <a href="#" onclick="window.location.reload()">Login</a>
+        </div>
+      `;
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      localStorage.setItem('crunchbite_user', JSON.stringify({ email, password }));
+      document.getElementById('message').innerText = 'Signup successful! Please log in.';
+      setTimeout(() => window.location.reload(), 1500);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const userData = JSON.parse(localStorage.getItem('crunchbite_user'));
+
+      if (userData && userData.email === email && userData.password === password) {
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerText = 'Login successful! Loading...';
+
+        setTimeout(() => {
+          document.getElementById('login-section').style.display = 'none';
+          document.getElementById('home-section').style.display = 'block';
+        }, 1000);
+      } else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerText = 'Invalid email or password.';
+      }
+    }
+    
+  </script>
+
+</body>
+</html>
